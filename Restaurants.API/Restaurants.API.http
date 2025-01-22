@@ -7,3 +7,36 @@ GET {{Restaurants.API_HostAddress}}/api/restaurants
 GET {{Restaurants.API_HostAddress}}/api/restaurants/{{id}}
 
 ###
+
+POST {{Restaurants.API_HostAddress}}/api/restaurants
+Content-Type: application/json
+
+{
+  "Name": "Ben",
+  "Description": "A cozy Italian restaurant offering authentic pizzas, pastas, and a variety of delicious desserts.",
+  "Category": "Indian",
+  "HasDelivery": true,
+  "ContactEmail": "contact@bellaitalia.com",
+  "ContactNumber": "+1-800-555-0345",
+  "City": "New York",
+  "Street": "456 Pasta Lane",
+  "PostalCode": "10-010"
+}
+
+###
+
+
+DELETE {{Restaurants.API_HostAddress}}/api/restaurants/7
+
+###
+
+PATCH {{Restaurants.API_HostAddress}}/api/restaurants/3
+Content-Type: application/json
+
+{
+  "Name" : "Sample patch",
+  "Description": "This is a sample restaurant description.",
+  "HasDelivery" : true
+}
+
+###

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.Extensions.DependencyInjection;
 using Restaurants.Application.Restaurants;
 
 namespace Restaurants.Application.Extenstions;
@@ -7,9 +9,12 @@ public static class ServiceCollectionExtensions
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IRestaurantService, RestaurantService>();
+        var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(applicationAssembly));
 
         // Scans the assembly for classes that inherit from Profile and registers them for AutoMapper.
-        services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
+        services.AddAutoMapper(applicationAssembly);
+        // Scans the assembly for classes that inherit from AbstractValidator and registers them for FluentValidator
+        services.AddValidatorsFromAssembly(applicationAssembly).AddFluentValidationAutoValidation();
     }
 }
