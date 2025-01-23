@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Restaurants\Validators\" />
+    <Folder Include="Dishes\Queries\" />
   </ItemGroup>
 
 </Project>

@@ -18,6 +18,7 @@ namespace Restaurants.Infrastructure.Extenstions
             services.AddDbContext<RestaurantsDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging()); //enable Serilog log variables values
             services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
             services.AddScoped<IRestaurantRepository, RestaurantsRepository>();
+            services.AddScoped<IDishesRepository,DishesRepository>();
         }
     }
 }
