@@ -1,19 +1,44 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Restaurants.Application.Dishes.Commands.CreateDish;
+using Restaurants.Application.Dishes.Commands.DeleteAllDishes;
+using Restaurants.Application.Dishes.Dtos;
+using Restaurants.Application.Dishes.Queries.GetAllDishes;
+using Restaurants.Application.Dishes.Queries.GetDishById;
 
 namespace Restaurants.API.Controllers;
 
 [ApiController]
 [Route("api/restaurant/{restaurantId}/dishes")]
-public class DishesController(IMediator mediator)  : Controller
+public class DishesController(IMediator mediator) : Controller
 {
     [HttpPost]
-    public async Task<IActionResult> CreateDish([FromRoute]int restaurantId, CreateDishCommand command)
+    public async Task<IActionResult> CreateDish([FromRoute] int restaurantId, CreateDishCommand command)
     {
         command.RestaurantId = restaurantId;
 
         await mediator.Send(command);
         return Created();
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<DishDto>>> GetAllDishes([FromRoute] int restaurantId)
+    {
+        var dishes = await mediator.Send(new GetAllDishesQuery(restaurantId));
+        return Ok(dishes);
+    }
+
+    [HttpGet("{dishId}")]
+    public async Task<IActionResult> GetDishById([FromRoute] int restaurantId, [FromRoute] int dishId)
+    {
+        var dish = await mediator.Send(new GetDishByIdQuery(restaurantId,dishId));
+        return Ok(dish);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAllDishes([FromRoute] int restaurantId)
+    {
+        await mediator.Send(new DeleteAllDishesCommand(restaurantId));
+        return NoContent();
     }
 }
