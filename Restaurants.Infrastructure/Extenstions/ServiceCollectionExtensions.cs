@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurants.Domain.Entities;
 using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Persistance;
 using Restaurants.Infrastructure.Repositories;
@@ -16,6 +17,11 @@ namespace Restaurants.Infrastructure.Extenstions
         {
             var connectionString = configuration.GetConnectionString("RestaurantsDb");
             services.AddDbContext<RestaurantsDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging()); //enable Serilog log variables values
+
+            //register Identity FrameworkCore 
+            services.AddIdentityApiEndpoints<User>()
+                .AddEntityFrameworkStores<RestaurantsDbContext>();
+
             services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
             services.AddScoped<IRestaurantRepository, RestaurantsRepository>();
             services.AddScoped<IDishesRepository,DishesRepository>();

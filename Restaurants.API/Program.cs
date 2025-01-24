@@ -3,23 +3,16 @@ using Restaurants.Infrastructure.Seeders;
 using Restaurants.Application.Extenstions;
 using Serilog;
 using Restaurants.API.Middlewares;
+using Restaurants.Domain.Entities;
+using Restaurants.API.Extenstions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
-
+builder.AddPresentation();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Host.UseSerilog((context, configuration) =>
-    configuration
-    .ReadFrom.Configuration(context.Configuration));
-    
 
 var app = builder.Build();
 
@@ -27,6 +20,7 @@ var app = builder.Build();
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantSeeder>();
 await seeder.Seed();
+
 app.UseMiddleware<ErrorHandlingMiddleware>(); //the error handling middleware
 app.UseMiddleware<RequestTimeLoggingMiddleware>(); //Timer Middleware
 
@@ -44,6 +38,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+//Use the identity framework endpoints
+app.MapGroup("api/identity").MapIdentityApi<User>();
 
+app.MapControllers();
 app.Run();
