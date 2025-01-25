@@ -39,7 +39,22 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 //Use the identity framework endpoints
-app.MapGroup("api/identity").MapIdentityApi<User>();
+app.MapGroup("api/identity")
+    .WithTags("Identity")
+    .MapIdentityApi<User>();
 
 app.MapControllers();
 app.Run();
+
+
+//TODO: REMOVE
+//Admin
+//{
+//    "email": "Admin@Test.com",
+//  "password": "Password1!"
+//}
+//User
+//{
+//    "email" : "user@test.com",
+//    "password" : "Password1!"
+//}

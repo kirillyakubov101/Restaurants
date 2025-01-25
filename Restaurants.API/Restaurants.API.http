@@ -56,3 +56,11 @@ Content-Type: application/json
 GET {{Restaurants.API_HostAddress}}/api/restaurant/14/dishes
 
 ###
+
+
+# {
+#   "email": "testUpdate@ems.net",
+#   "password": "passWord!1"
+# }
+
+ 
