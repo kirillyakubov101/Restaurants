@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Restaurants.Application.Users.Commands.AssignUserRoles;
 using Restaurants.Application.Users.Commands.UnAssignUserRole;
 using Restaurants.Application.Users.Commands.UpdateUserDetails;
+using Restaurants.Application.Users.Commands.UpdateUserEmail;
 using Restaurants.Domain.Constants;
 
 namespace Restaurants.API.Controllers
@@ -21,8 +22,8 @@ namespace Restaurants.API.Controllers
         }
        
         [HttpPost("userRole")]
-        [Authorize (Roles = UserRoles.Admin)]
-        public async Task<IActionResult> AssignedUserRole(AssignUserRoleCommand command)
+        [Authorize (Roles = UserRoles.User)]
+        public async Task<IActionResult> AssigneUserRole(AssignUserRoleCommand command)
         {
             await mediator.Send(command);
             return NoContent ();
@@ -33,6 +34,14 @@ namespace Restaurants.API.Controllers
         public async Task<IActionResult> UnAssignUserRole(UnAssignUserRoleCommand command)
         {
             await mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpPatch("updateUserEmail")]
+        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Owner + "," + UserRoles.User)]
+        public async Task<IActionResult> UpdateUserEmail(UpdateUserEmailCommand command)
+        {
+            await mediator.Send (command);
             return NoContent();
         }
     }

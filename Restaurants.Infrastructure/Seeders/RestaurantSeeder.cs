@@ -1,7 +1,6 @@
 ﻿
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Restaurants.Domain.Constants;
 using Restaurants.Domain.Entities;
 using Restaurants.Infrastructure.Persistance;
@@ -21,8 +20,15 @@ namespace Restaurants.Infrastructure.Seeders
             {
                 if (!dbContext.Restaurants.Any())
                 {
-                    var restuarants = GetRestaurants();
-                    dbContext.Restaurants.AddRange(restuarants);
+                    var restaurants = GetRestaurants();
+
+                    foreach (var restuarant in restaurants)
+                    {
+                        restuarant.OwnerId = "04c32d52-8c9f-4e3d-8baa-409fa2b4962c";
+                    }
+
+
+                    dbContext.Restaurants.AddRange(restaurants);
                     await dbContext.SaveChangesAsync();
                 }
 

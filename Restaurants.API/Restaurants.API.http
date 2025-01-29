@@ -1,66 +1,78 @@
 @Restaurants.API_HostAddress = https://localhost:7090
+@Token = CfDJ8Avkq4B2K_JAmi2dlNxgNZElDyj_QZXoZy3gfHChHn4GaTsLDLQRcm6C3lpmxB9rpFAzAehRlArxRSmvRFWUSIRQCJoNFqf6RdXpg12d9tWkD5351ezAopvX0iBR-wKwngwv4EMuuWmQImgVvq_BrZaBo1rNqswqm0-3F3jRbIrC4sVrBdsbUgBvQ_GULs0g1iznXunvILcBEntGobZKzJLuarC1sGgK34a8HIKFAdsPFOEQQ3hX0azDBCm3lfW-ktVakLhXBsKO1Lb5rf2b2LFDtnLdtxniCh3CEFGMxDjWl5K9PxZHnLewYAeRuUcyA_z4m-VhI0pxZ5lrQ4BcILEPaPcr5aMcKavkmxQ8PoLy_rnOezNIEalc_vAt8vxn-dOAZtDLatWWHcNu6spF0d69kmUnR8ZGAPsO_pAKzYRvavUEUsQJsqTgKOYQSYEjbv6uua5pOt_EtNnDSaI-mJCiZSzZsIsbX9FnS5g1LksKCpEE23JfbtcutZnS2Ffei20hIRuptPI3x6m_YFFAhKKjNLF2EKAZas22SO69mmNi__pMpK01aVgb_FoM4Iev2vWONoCqTPJDNcT7qql_PJ7z6yO4roXj66wz7SREAfRwSCgGDPwJg9xKLLzTvXBr6RnwYo1R8Pp9QAAUOcwxbU01INkaxfOJhggsJaRcRMs1y1DITSAsKGHuXoUT29uIY0ByEtN0-mM82nXyzDoBgrpYH-7ObsaDdA_AOb8lHHoa4vJMmxoK-vcIs4-LE-XbR_nt8QoiRYhLkg17NEBxWxHqHnHwJ2P5JZwolDP7Iphkt0Q2lkZShspFTa5Lj2P0duL6FgW_CU_ase4ELrmi50gJWe6BMjA1tv_VRYNRZmgZENHrf_O1Ms8qP9VLbkPg7p-FpYTXbS8ZDS9Hconyab8
+# Authorization : Bearer {{Token}}
 
-GET {{Restaurants.API_HostAddress}}/api/restaurants
+DELETE {{Restaurants.API_HostAddress}}/api/identity/deleteUser
 
 ###
-@id=14
-GET {{Restaurants.API_HostAddress}}/api/restaurants/{{id}}
 
+POST {{Restaurants.API_HostAddress}}/api/identity/userRole
+Content-Type: application/json
+Authorization : Bearer {{Token}}
+{
+  //AssignUserRoleCommand
+}
+
+###
+
+POST {{Restaurants.API_HostAddress}}/api/identity/login
+Content-Type: application/json
+{
+  "email": "Owner@MainOwner.com",
+  "password": "Password1!",
+  "twoFactorCode": "string",
+  "twoFactorRecoveryCode": "string"
+}
+
+###
+
+GET {{Restaurants.API_HostAddress}}/api/restaurants
+Authorization : Bearer {{Token}}
 ###
 
 POST {{Restaurants.API_HostAddress}}/api/restaurants
 Content-Type: application/json
-
+Authorization : Bearer {{Token}}
 {
-  "Name": "Ben",
-  "Description": "A cozy Italian restaurant offering authentic pizzas, pastas, and a variety of delicious desserts.",
-  "Category": "Indian",
-  "HasDelivery": true,
-  "ContactEmail": "contact@bellaitalia.com",
-  "ContactNumber": "+1-800-555-0345",
-  "City": "New York",
-  "Street": "456 Pasta Lane",
-  "PostalCode": "10-010"
+  //CreateRestaurantCommand
 }
 
 ###
 
 
-DELETE {{Restaurants.API_HostAddress}}/api/restaurants/7
-
+DELETE {{Restaurants.API_HostAddress}}/api/restaurants/1111
+Authorization : Bearer {{Token}}
 ###
 
-PATCH {{Restaurants.API_HostAddress}}/api/restaurants/3
+GET {{Restaurants.API_HostAddress}}/api/restaurants/18
+Authorization : Bearer {{Token}}
+###
+
+PATCH {{Restaurants.API_HostAddress}}/api/restaurants/18
 Content-Type: application/json
-
+Authorization : Bearer {{Token}}
 {
-  "Name" : "Sample patch",
-  "Description": "This is a sample restaurant description.",
-  "HasDelivery" : true
+   "Id" : 0,
+    "Name" : "Updated Restaurant Name By Owner!",
+    "Description" : "Very cool description",
+    "HasDelivery" : true
 }
 
 ###
 
-POST {{Restaurants.API_HostAddress}}/api/restaurant/14/dishes
+POST {{Restaurants.API_HostAddress}}/api/restaurant/18/dishes
 Content-Type: application/json
-
+Authorization : Bearer {{Token}}
 {
-  "Name" : "Ice-Cream Americano",
-  "Description" : "Best Ice-cream  in the world!",
-  "Price" : 7.99,
-  "KiloCalories" : 500
+  "Name" : "Pizza",
+  "Description" : "big pizza alfredo",
+  "Price" : 12.95,
+  "KiloCalories" : 300
 }
 
 ###
 
-GET {{Restaurants.API_HostAddress}}/api/restaurant/14/dishes
 
+GET {{Restaurants.API_HostAddress}}/api/restaurant/18/dishes
+Authorization : Bearer {{Token}}
 ###
-
-
-# {
-#   "email": "testUpdate@ems.net",
-#   "password": "passWord!1"
-# }
-
- 
