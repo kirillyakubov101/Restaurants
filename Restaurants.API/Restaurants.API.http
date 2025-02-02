@@ -1,6 +1,5 @@
 @Restaurants.API_HostAddress = https://localhost:7090
-@Token = CfDJ8Avkq4B2K_JAmi2dlNxgNZElDyj_QZXoZy3gfHChHn4GaTsLDLQRcm6C3lpmxB9rpFAzAehRlArxRSmvRFWUSIRQCJoNFqf6RdXpg12d9tWkD5351ezAopvX0iBR-wKwngwv4EMuuWmQImgVvq_BrZaBo1rNqswqm0-3F3jRbIrC4sVrBdsbUgBvQ_GULs0g1iznXunvILcBEntGobZKzJLuarC1sGgK34a8HIKFAdsPFOEQQ3hX0azDBCm3lfW-ktVakLhXBsKO1Lb5rf2b2LFDtnLdtxniCh3CEFGMxDjWl5K9PxZHnLewYAeRuUcyA_z4m-VhI0pxZ5lrQ4BcILEPaPcr5aMcKavkmxQ8PoLy_rnOezNIEalc_vAt8vxn-dOAZtDLatWWHcNu6spF0d69kmUnR8ZGAPsO_pAKzYRvavUEUsQJsqTgKOYQSYEjbv6uua5pOt_EtNnDSaI-mJCiZSzZsIsbX9FnS5g1LksKCpEE23JfbtcutZnS2Ffei20hIRuptPI3x6m_YFFAhKKjNLF2EKAZas22SO69mmNi__pMpK01aVgb_FoM4Iev2vWONoCqTPJDNcT7qql_PJ7z6yO4roXj66wz7SREAfRwSCgGDPwJg9xKLLzTvXBr6RnwYo1R8Pp9QAAUOcwxbU01INkaxfOJhggsJaRcRMs1y1DITSAsKGHuXoUT29uIY0ByEtN0-mM82nXyzDoBgrpYH-7ObsaDdA_AOb8lHHoa4vJMmxoK-vcIs4-LE-XbR_nt8QoiRYhLkg17NEBxWxHqHnHwJ2P5JZwolDP7Iphkt0Q2lkZShspFTa5Lj2P0duL6FgW_CU_ase4ELrmi50gJWe6BMjA1tv_VRYNRZmgZENHrf_O1Ms8qP9VLbkPg7p-FpYTXbS8ZDS9Hconyab8
-# Authorization : Bearer {{Token}}
+@Token = CfDJ8Avkq4B2K_JAmi2dlNxgNZEu90XhMHTFF-ju6svVmSlSskxfKf4UUVmgZXRFrgJh-ZB8KMH9OyV-Ze8MTPuL9XEF74KYGgqwFH4QkE2lEstCJrO-B-IbFsSg6G7TXxP8xS_QfxS-dxD_j_E1rjgNGiKxV9slqhzxrNmUhTbrolw9nZRM23XF3cTPCaNururL_YcGq1MQixvykrhV_ARdYGJ8aDP3v4e-cNsbn8stZV957rlKiPgWv6D1Rdbnyx1y9nEsZFBej4kuakgMkMI6ScUViBbXcpR5GgR4EeiDV-4dUfBF-EvlC6cFOYTMSmmiv6lF5fxkTjT29C8Exm6zufaH36nzxODwXaMH8SFwS_Jkg5b6p4t4d9GflBWEwPdzZMsho3GaFb9Gt9dL6x05yjwEMLPwSAsw_O3DWuQwOCn1WNAQWVtYUzmH7cqqB2pIIqp-KCj6YlH_WX1-mHi9gbsQ_3M2XwNGY_digmNI_yDSht-7LcT8EuLwVZ8SJwQ5gwsPj7UoLmvO1Op9UhuPLH3wrYUDP6Bv2Z3_9m2stujPqkC2xx30tDnapSt-8oQi-Mmm8Rhhdy9uxqGmnK5fcD42_bIQSoleM1lInQQjLHZwQjM4l2taChCjnXWclDQnR0NvlFajY_GXyGX9CH3hyOzFSM7yndEYZPEOTAQVBhw_WbmOHKhTFn6g5emuLQkjNXDDJLo5dCuZMRU_g0Ez21AdpIBsnNqQjQ43eVPuGg-I8yi61gqMLLcTwlxRbqVg1CPTuIfrcbTw1ChcuCsIVFCdNGO8M89d2ob7lz2ym4x1edt2dlmjczE5Gajk6gcqp1X5nJEMLLV11xWoOoDxPGyB6lolO3zOQLyl1xxcNU2rztG2e6_QANZvFSeWngAvnllI3DJ2N8hUsoD65Ku-EiU
 
 DELETE {{Restaurants.API_HostAddress}}/api/identity/deleteUser
 
@@ -26,7 +25,7 @@ Content-Type: application/json
 
 ###
 
-GET {{Restaurants.API_HostAddress}}/api/restaurants
+GET {{Restaurants.API_HostAddress}}/api/restaurants?searchPhrase=NewRest&pageSize=5&pageNumber=1&sortBy=Name&sortDirection=Descending
 Authorization : Bearer {{Token}}
 ###
 
@@ -34,7 +33,15 @@ POST {{Restaurants.API_HostAddress}}/api/restaurants
 Content-Type: application/json
 Authorization : Bearer {{Token}}
 {
-  //CreateRestaurantCommand
+  "name": "NewRest",
+  "description": "NewRest",
+  "category": "Indian",
+  "hasDelivery": true,
+  "contactEmail": "kdasd@dasd.com",
+  "contactNumber": "24322",
+  "city": "string",
+  "street": "string",
+  "postalCode": "33-445"
 }
 
 ###

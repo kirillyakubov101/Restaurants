@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ using Restaurants.Infrastructure.Authorization;
 using Restaurants.Infrastructure.Authorization.Services;
 using Restaurants.Infrastructure.Persistance;
 using Restaurants.Infrastructure.Repositories;
+using Restaurants.Infrastructure.Requirements;
 using Restaurants.Infrastructure.Seeders;
 
 namespace Restaurants.Infrastructure.Extenstions
@@ -32,7 +34,10 @@ namespace Restaurants.Infrastructure.Extenstions
             services.AddScoped<IRestaurantRepository, RestaurantsRepository>();
             services.AddScoped<IDishesRepository,DishesRepository>();
             services.AddAuthorizationBuilder()
-                .AddPolicy(PolicyNames.HasNationality, builder => builder.RequireClaim(AppClaimTypes.HasNationality, "Mexican", "Italian"));
+                .AddPolicy(PolicyNames.HasNationality, builder => builder.RequireClaim(AppClaimTypes.HasNationality, "Mexican", "Italian"))
+                .AddPolicy(PolicyNames.CreatedAtLeastTwoRestaurants, builder => builder.AddRequirements(new CreatedMultipleRestaurantsRequirement(2)));
+
+            services.AddScoped<IAuthorizationHandler, CreatedMultipleRestaurantsRequirementHandler>();
 
             services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
         }
