@@ -24,7 +24,7 @@ public class RestaurantAuthorizationService(ILogger<RestaurantAuthorizationServi
             return true;
         }
 
-        if (resourceOptions == ResourceOperation.Delete && user.IsInRol(UserRoles.Admin))
+        if (resourceOptions == ResourceOperation.Delete && user.IsInRole(UserRoles.Admin))
         {
             logger.LogInformation("Admin user, delete operation - successful authorization");
             return true;
