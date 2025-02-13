@@ -35,3 +35,4 @@ public class UpdateRestaurantCommandHandler(ILogger<UpdateRestaurantCommandHandl
         await restaurantRepository.SaveChanges();
     }
 }
+ 
