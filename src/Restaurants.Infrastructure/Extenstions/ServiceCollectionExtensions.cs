@@ -23,7 +23,7 @@ namespace Restaurants.Infrastructure.Extenstions
         {
             var connectionString = configuration.GetConnectionString("RestaurantsDb");
             services.AddDbContext<RestaurantsDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging()); //enable Serilog log variables values
-
+           
             //register Identity FrameworkCore 
             services.AddIdentityApiEndpoints<User>()
                 .AddRoles<IdentityRole>()
