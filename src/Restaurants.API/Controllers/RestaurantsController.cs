@@ -1,9 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 using Restaurants.Application.Restaurants.Commands.DeleteRestaurant;
 using Restaurants.Application.Restaurants.Commands.ModifyRestaurant;
+using Restaurants.Application.Restaurants.Commands.UploadRestaurantLogo;
 using Restaurants.Application.Restaurants.Dtos;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
@@ -69,6 +72,23 @@ namespace Restaurants.API.Controllers
             command.Id = id;
             await mediator.Send(command);
 
+            return NoContent();
+        }
+
+        [HttpPost("{id}/logo")]
+        [Authorize(Roles = UserRoles.Owner)]
+        public async Task<IActionResult> UploadLogo([FromRoute]int id,IFormFile file)
+        {
+            using var stream = file.OpenReadStream();
+
+            var command = new UploadRestaurantLogoCommand()
+            {
+                RestaurantId = id,
+                FileName = file.FileName,
+                File = stream
+            };
+
+            await mediator.Send(command);
             return NoContent();
         }
 

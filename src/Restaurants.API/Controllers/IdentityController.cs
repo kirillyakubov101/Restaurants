@@ -22,7 +22,7 @@ namespace Restaurants.API.Controllers
         }
        
         [HttpPost("userRole")]
-        [Authorize (Roles = UserRoles.User)]
+        [Authorize (Roles = UserRoles.Owner)]
         public async Task<IActionResult> AssigneUserRole(AssignUserRoleCommand command)
         {
             await mediator.Send(command);

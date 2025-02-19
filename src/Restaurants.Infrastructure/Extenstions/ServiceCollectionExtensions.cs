@@ -10,10 +10,12 @@ using Restaurants.Domain.Interfaces;
 using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Authorization;
 using Restaurants.Infrastructure.Authorization.Services;
+using Restaurants.Infrastructure.Configuration;
 using Restaurants.Infrastructure.Persistance;
 using Restaurants.Infrastructure.Repositories;
 using Restaurants.Infrastructure.Requirements;
 using Restaurants.Infrastructure.Seeders;
+using Restaurants.Infrastructure.Storage;
 
 namespace Restaurants.Infrastructure.Extenstions
 {
@@ -40,6 +42,9 @@ namespace Restaurants.Infrastructure.Extenstions
             services.AddScoped<IAuthorizationHandler, CreatedMultipleRestaurantsRequirementHandler>();
 
             services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
+
+            services.Configure<BlobStorageSettings>(configuration.GetSection("BlobStorage"));
+            services.AddScoped<IBlobStorageService, BlobStorageService>();
         }
     }
 }

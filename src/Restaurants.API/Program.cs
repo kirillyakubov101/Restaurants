@@ -16,6 +16,9 @@ try
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
 
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
     var app = builder.Build();
 
     // Add Seeder - some values to work with and test the API
